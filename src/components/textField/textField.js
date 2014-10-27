@@ -60,6 +60,9 @@ function mdTextFloatDirective() {
           // transpose optional `type` and `class` settings
           element.attr('type', attrs.type || "text");
           element.attr('class', attrs.class );
+
+          // override the tabindex value set by ngAria
+          element.attr('tabindex', -1);
         }
       };
     },
@@ -141,6 +144,7 @@ function mdInputDirective($mdUtil) {
       var isDisabled = $mdUtil.isParentDisabled(element);
 
       element.attr('tabindex', isDisabled ? -1 : 0 );
+      element.attr('aria-disabled', isDisabled ? 'true' : 'false');
       element.attr('type', attr.type || element.parent().attr('type') || "text" );
 
       // When the input value changes, check if it "has" a value, and
